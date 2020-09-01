@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Инфо о пользователе</title>
+    <div align="center"><a href="/logout">Logout</a></div>
+</head>
+<body>
+<div align="center">
+    <table border="1" cellpadding="5">
+        <h2>Информация о пользователе:</h2>
+        <tr><th>Логин: <b th:text="${user.login}"></b></th></tr>
+        <tr><th>Пароль: <b th:text="${user.password}"></b>
+        <tr><th>Email: <b th:text="${user.email}"></b></th></tr>
+        <tr><th>Группа: <b th:text="${user.getRoles()}"></b></th></tr>
+    </table>
+</div>
+</body>
+</html>

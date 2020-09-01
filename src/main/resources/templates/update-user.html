@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Изменение пользователя</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <div align="center"><a href="/logout">Logout</a></div>
+    <div align="center"><a href="/admin">Вернуться к списку юзеров</a></div>
+</head>
+<body>
+<div align="center">
+    <form action="#" th:action="@{/update/{id}(id=${user.id})}" th:object="${user}" method="post">
+        <table border="1" cellpadding="5">
+            <h2>Изменить пользователя:</h2>
+            <tr>
+                <!--            <form action="#" th:action="@{/update/{id}(id=${user.id})}" th:object="${user}" method="post">-->
+                <th><label for="login">Login</label></th>
+                <td><input type="text" th:field="*{login}" id="login" placeholder="Login">
+                    <span th:if="${#fields.hasErrors('login')}" th:errors="*{login}"></span>
+                </td>
+            </tr>
+            <tr>
+                <th><label for="password">Password</label></th>
+                <td><input type="text" th:field="*{password}" id="password" placeholder="Password">
+                    <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
+                </td>
+            </tr>
+            <tr>
+                <th><label for="password">Email</label></th>
+                <td><input type="text" th:field="*{email}" id="email" placeholder="Email">
+                    <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+                </td>
+            </tr>
+            <br>
+            <table border="1" cellpadding="5">
+                <tr>
+                    <td>
+                        <div style="text-align: center;">
+                            <h4>Авторизация</h4>
+                        </div>
+                    </td>
+                    <td>
+                        <select th:name="role_id">
+                            <option value="1">USER</option>
+                            <option value="2">ADMIN</option>
+                        </select>
+                    </td>
+                </tr>
+            </table>
+            <tr>
+                <td colspan="2" align="center">
+                    <input type="submit" value="Изменить">
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+</body>
+</html>

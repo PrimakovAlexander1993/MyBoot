@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Пользователи</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <div align="center"><a href="/logout">Logout</a></div>
+</head>
+<body>
+<div align="center">
+    <table border="1" cellpadding="5">
+        <caption><h2>Зарегистрированные пользователи:</h2></caption>
+        <tr>
+            <th>Id</th>
+            <th>Login</th>
+            <th>Password</th>
+            <th>Role</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+        <tr th:each="user : ${users}">
+            <td th:text="${user.id}"></td>
+            <td th:text="${user.login}"></td>
+            <td th:text="${user.password}"></td>
+            <td th:text="${user.roles}"></td>
+            <td>
+                <a method="post" th:href="@{/edit/{id}(id=${user.id})}">Изменить пользователя</a>
+            </td>
+            <td>
+                <a method="post" th:href="@{/delete/{id}(id=${user.id})}">Удалить пользователя</a>
+            </td>
+        </tr>
+        </th:forEach>
+    </table>
+    <br>
+    <table border="1" cellpadding="5">
+        <tr>
+            <td>
+                <div style="text-align: center;">
+                    <h4>Добавление пользователя</h4>
+                </div>
+            </td>
+            <td>
+                <form action="/signup" method="GET">
+                    <input align="middle" type="hidden" name="action" value="add"/>
+                    <button type="submit">Добавить</button>
+                </form>
+            </td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>
