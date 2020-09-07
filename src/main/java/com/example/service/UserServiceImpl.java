@@ -2,7 +2,6 @@ package com.example.service;
 
 import com.example.DAO.RoleDao;
 import com.example.DAO.UserDaoImpl;
-import com.example.DAO.UserRolesDao;
 import com.example.model.Role;
 import com.example.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +19,8 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private RoleDao roleDao;
 
-    @Autowired
-    private UserRolesDao userRolesDao;
+    //@Autowired
+    //private UserRolesDao userRolesDao;
 
     @Override
     @Transactional
@@ -62,7 +61,7 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public void addUserRoles(Long userId, String userRoles) {
-        userRolesDao.addUserRoles(userId, userRoles);
+        userDao.addUserRoles(userId, userRoles);
     }
 
     @Override

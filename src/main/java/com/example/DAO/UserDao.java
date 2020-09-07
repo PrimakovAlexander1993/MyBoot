@@ -16,5 +16,7 @@ public interface UserDao {
     void updateUser(User user);
 
     User getUserByName(String name);
+
+    void addUserRoles(Long userId, String userRoles);
 }
 

@@ -1,9 +1,11 @@
 package com.example.DAO;
+
 import com.example.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
@@ -49,5 +51,27 @@ public class UserDaoImpl implements UserDao {
                 .createQuery("FROM User WHERE login = :name", User.class);
         query.setParameter("name", name);
         return query.getSingleResult();
+    }
+
+    /**
+     *
+     * @param userId
+     * @param userRoles
+     * public void addUserRoles(Long userId, String userRoles) {
+     *         if (userRoles.equalsIgnoreCase("admin")) {
+     *             Query query = entityManager.createNativeQuery(
+     *                     "insert into user_roles values (?, 2)");
+     *             query.setParameter(1, userId);
+     *             query.executeUpdate();
+     *         }
+     *
+     *     }
+     */
+
+    @Override
+    public void addUserRoles(Long userId, String userRoles) {
+        if (userRoles.equalsIgnoreCase("admin")){
+            entityManager.persist(userRoles);
+        }
     }
 }
