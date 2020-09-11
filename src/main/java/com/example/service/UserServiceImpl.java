@@ -63,7 +63,7 @@ public class UserServiceImpl implements UserService {
     public void addUserRoles(Long userId, String userRoles) {
         userDao.addUserRoles(userId, userRoles);
     }
-
+/*
     @Override
     @Transactional
     public Role findByRole(String role) {
@@ -74,7 +74,7 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public Role findByRole(Long id) {
         return roleDao.findByRole(id);
-    }
+    }*/
 
     @Override
     @Transactional

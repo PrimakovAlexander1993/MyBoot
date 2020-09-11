@@ -1,6 +1,6 @@
-package com.example.security;
+package com.example.config;
 
-import com.example.config.handler.LoginSuccessHandler;
+import com.example.config.LoginSuccessHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -36,6 +36,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/admin/**").access("hasAnyRole('ROLE_ADMIN')")
                 .antMatchers("/user/**").access("hasAnyRole('ROLE_USER')")
+                .antMatchers("/user/**").access("hasAnyRole('ROLE_ADMIN')")
                 .anyRequest().authenticated()
                 .and().formLogin()
                 .successHandler(new LoginSuccessHandler())

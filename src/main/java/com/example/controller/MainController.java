@@ -1,5 +1,6 @@
 package com.example.controller;
 
+import com.example.service.RoleService;
 import com.example.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -19,6 +20,9 @@ public class MainController {
     @Autowired
     UserService userService;
 
+    @Autowired
+    RoleService roleService;
+
     @GetMapping("login")
     public String login() {
         return "login";
@@ -26,11 +30,9 @@ public class MainController {
 
     @GetMapping("user")
     public String user(ModelMap modelMap, Authentication auth) {
-        if (auth.isAuthenticated()) {
-            String userName = auth.getName();
-            User user = userService.getUserByName(userName);
-            modelMap.addAttribute("user", user);
-        }
+        String userName = auth.getName();
+        User user = userService.getUserByName(userName);
+        modelMap.addAttribute("user", user);
         return "user";
     }
 
@@ -52,7 +54,7 @@ public class MainController {
         if (result.hasErrors()) {
             return "add-user";
         }
-        user.setRoles(Collections.singleton(userService.findByRole(roleId)));
+        user.setRoles(Collections.singleton(roleService.findByRole(roleId)));
         userService.addUser(user);
         model.addAttribute("users", userService.getAllUsers());
         return "index";
@@ -74,7 +76,7 @@ public class MainController {
             user.setId(id);
             return "update-user";
         }
-        user.setRoles(Collections.singleton(userService.findByRole(roleId)));
+        user.setRoles(Collections.singleton(roleService.findByRole(roleId)));
         userService.updateUser(user);
         model.addAttribute("users", userService.getAllUsers());
         return "index";

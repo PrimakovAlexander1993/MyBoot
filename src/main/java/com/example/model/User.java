@@ -24,6 +24,15 @@ public class User implements UserDetails {
     @Column(name = "email")
     private String email;
 
+    public User() {
+    }
+
+    public User(String login, String password, String email) {
+        this.login = login;
+        this.password = password;
+        this.email = email;
+    }
+
     public String getEmail() {
         return email;
     }
@@ -36,15 +45,6 @@ public class User implements UserDetails {
     @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
-
-    public User() {
-    }
-
-    public User(String login, String password, String email) {
-        this.login = login;
-        this.password = password;
-        this.email = email;
-    }
 
     public Long getId() {
         return id;
