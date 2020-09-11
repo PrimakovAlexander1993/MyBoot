@@ -36,13 +36,11 @@ CREATE TABLE user_roles
 
 -- Insert data
 INSERT INTO users
-VALUES (1, 'Alexander', 'Alexander', 'Alexander@mail.ru');
-
+VALUES (1, 'Alex', '$2a$10$q/LL/.ZpVfBeVZa6jjS4kex8Uy3nga3JTV.ZbbLlBkXNqLnfILreK', 'San@mail.ru'); -- SET PASSWORD = San
 INSERT INTO users
-VALUES (2, 'test', 'test', 'test@test.ru');
-
+VALUES (2, 'test', '$2a$10$xFBkgR.Pe45fZGdkM2rnaevYwFT6kNb/xsx9AsMWdcu7VEfGa3Wx6', 'test@test.ru'); -- SET PASSWORD = test
 INSERT INTO users
-VALUES (3, 'ADMIN', 'ADMIN', 'admin@ru');
+VALUES (3, 'ADMIN', '$2a$10$feHNYWuhu4rVSFw9QWTF7O5ds.G1fuO15nU6pwwICy00QZTYNUuAy', 'admin@ru'); -- SET PASSWORD = ADMIN
 
 INSERT INTO roles
 VALUES (1, 'ROLE_USER');

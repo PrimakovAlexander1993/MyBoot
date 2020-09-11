@@ -19,9 +19,6 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private RoleDao roleDao;
 
-    //@Autowired
-    //private UserRolesDao userRolesDao;
-
     @Override
     @Transactional
     public List<User> getAllUsers() {
@@ -63,18 +60,6 @@ public class UserServiceImpl implements UserService {
     public void addUserRoles(Long userId, String userRoles) {
         userDao.addUserRoles(userId, userRoles);
     }
-/*
-    @Override
-    @Transactional
-    public Role findByRole(String role) {
-        return roleDao.findByRole(role);
-    }
-
-    @Override
-    @Transactional
-    public Role findByRole(Long id) {
-        return roleDao.findByRole(id);
-    }*/
 
     @Override
     @Transactional

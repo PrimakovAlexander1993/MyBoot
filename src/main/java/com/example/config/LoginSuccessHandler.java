@@ -20,13 +20,6 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
     public void onAuthenticationSuccess(HttpServletRequest httpServletRequest,
                                         HttpServletResponse httpServletResponse,
                                         Authentication authentication) throws IOException {    //, ServletException
-        /*HttpSession httpSession = httpServletRequest.getSession();
-        httpSession.setAttribute("user", authentication.getPrincipal());
-        if (authentication.getAuthorities().stream().anyMatch(role -> role.getAuthority().equals("ROLE_ADMIN"))) {
-            httpServletResponse.sendRedirect("/admin");
-        } else {
-            httpServletResponse.sendRedirect("/user");
-        }*/
         User user = (User) authentication.getPrincipal();
         System.out.println(user);
         List<String> roleList = new ArrayList<>();
