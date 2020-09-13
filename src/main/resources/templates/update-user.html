@@ -41,10 +41,15 @@
                         </div>
                     </td>
                     <td>
-                        <select th:name="role_id">
-                            <option value="1">USER</option>
-                            <option value="2">ADMIN</option>
-                        </select>
+                    <td>Roles:</td>
+                    <td>
+                        <ul>
+                            <li th:each="role : ${ROLES}">
+                                <input type="checkbox" name="rolesValues" th:value="${role}"/>
+                                <label th:text="${role}"></label>
+                            </li>
+                        </ul>
+                    </td>
                     </td>
                 </tr>
             </table>

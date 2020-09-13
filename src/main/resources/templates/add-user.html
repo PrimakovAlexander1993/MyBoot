@@ -42,10 +42,14 @@
                         </div>
                     </td>
                     <td>
-                        <select th:name="role_id">
-                            <option value="1">USER</option>
-                            <option value="2">ADMIN</option>
+                    <td>Roles:</td>
+                    <td>
+                        <label for="roleSelect">Role</label><br>
+                        <select multiple size="2" id="roleSelect" name="roles">
+                            <option value="1">Role Admin</option>
+                            <option value="2">Role User</option>
                         </select>
+                    </td>
                     </td>
                 </tr>
             </table>

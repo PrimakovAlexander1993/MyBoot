@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import java.util.List;
+import java.util.Set;
 
 @Repository
 public class RoleDaoImpl implements RoleDao {
@@ -37,5 +38,16 @@ public class RoleDaoImpl implements RoleDao {
     @Override
     public Role getRole(Long id) {
         return entityManager.getReference(Role.class, id);
+    }
+
+    @Override
+    public Long countRoles(String name) {
+        return(Long) entityManager.createQuery("SELECT COUNT(*) FROM Role where name = :name")
+                .setParameter("name", name).getSingleResult();
+    }
+
+    @Override
+    public void addRole(Role role) {
+        entityManager.persist(role);
     }
 }
