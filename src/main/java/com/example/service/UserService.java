@@ -11,12 +11,12 @@ public interface UserService {
 
     User findById(Long id);
 
-    //void addUser(User user);
-    // void updateUser(User user);
+    void addUser(User user);
+     void updateUser(User user);
 
     void deleteUser(User user);
-    void addUser(User user, Set<String> rolesValues);
-    void updateUser(User user, Set<String> rolesValues);
+//    void addUser(User user, Set<String> rolesValues);
+//    void updateUser(User user, Set<String> rolesValues);
 
 
     User getUserByName(String name);

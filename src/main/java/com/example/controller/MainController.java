@@ -50,49 +50,18 @@ public class MainController {
         return "add-user";
     }
 
-    //    @PostMapping("adduser")
-//    public String addUser(@RequestParam("roles") Set<String> roles,
-//                          @Validated User user,
-//                          ModelMap model) {
-//        user.setRoles(roleService.getAllRoles());
-//        userService.addUser(user, roles);
-//        model.addAttribute("users", userService.getAllUsers());
-//        return "index";
-//    }
     @PostMapping("adduser")
-    public String addUser(@RequestParam("roles") Set<String> roles, @ModelAttribute("user") User user, ModelMap model) {
-        userService.addUser(user,roles);
+    public String addUser(@RequestParam(value = "role_id") Long roleId,
+                          @Validated User user, BindingResult result,
+                          ModelMap model) {
+        if (result.hasErrors()) {
+            return "add-user";
+        }
+        user.setRoles(Collections.singleton(roleService.findByRole(roleId)));
+        userService.addUser(user);
         model.addAttribute("users", userService.getAllUsers());
         return "index";
     }
-
-    @PostMapping("update/{id}")
-    public String updateUser(@RequestParam("roles") Set<String> roles,
-                             @ModelAttribute("user") User user, ModelMap model) {
-        userService.updateUser(user, roles);
-        model.addAttribute("users", userService.getAllUsers());
-        return "index";
-    }
-//    @PostMapping("adduser")
-//    public String addUser(@ModelAttribute("user") User user, @RequestParam Set<String> roles,ModelMap model) {
-//        if (user.getId() == 0) {
-//            this.userService.addUser(user, roles);
-//        } else {
-//            this.userService.updateUser(user, roles);
-//        }
-//        model.addAttribute("users", userService.getAllUsers());
-//        return "index";
-//    }
-//    @PostMapping("adduser")
-//    public String addUser(@RequestParam("roles") Set<String> roles,@ModelAttribute("user") User user,  ModelMap model) {
-//        if (user.getId() == 0) {
-//            this.userService.addUser(user, roles);
-//        } else {
-//            this.userService.updateUser(user, roles);
-//        }
-//        model.addAttribute("users", userService.getAllUsers());
-//        return "index";
-//    }
 
     @GetMapping("edit/{id}")
     public String showUpdateForm(@PathVariable("id") long id, Model model) {
@@ -101,19 +70,19 @@ public class MainController {
         return "update-user";
     }
 
-//        @PostMapping("update/{id}")
-//    public String updateUser(@RequestParam(value = "role_id") Long roleId,
-//                             @PathVariable("id") long id, @Validated User user,
-//                             BindingResult result, Model model) {
-//        if (result.hasErrors()) {
-//            user.setId(id);
-//            return "update-user";
-//        }
-//        user.setRoles(Collections.singleton(roleService.findByRole(roleId)));
-//        userService.updateUser(user);
-//        model.addAttribute("users", userService.getAllUsers());
-//        return "index";
-//    }
+    @PostMapping("update/{id}")
+    public String updateUser(@RequestParam(value = "role_id") Long roleId,
+                             @PathVariable("id") long id, @Validated User user,
+                             BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            user.setId(id);
+            return "update-user";
+        }
+        user.setRoles(Collections.singleton(roleService.findByRole(roleId)));
+        userService.updateUser(user);
+        model.addAttribute("users", userService.getAllUsers());
+        return "index";
+    }
 
 
     @GetMapping("delete/{id}")

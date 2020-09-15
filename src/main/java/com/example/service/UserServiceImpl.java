@@ -37,24 +37,24 @@ public class UserServiceImpl implements UserService {
         return userDao.findById(id);
     }
 
-//    @Override
-//    @Transactional
-//    public void addUser(User user) {
-//        userDao.addUser(user);
-//    }
-
-    @Transactional
     @Override
-    public void addUser(User user, Set<String> rolesValues) {
-        makeChanges(user, rolesValues);
+    @Transactional
+    public void addUser(User user) {
         userDao.addUser(user);
     }
-    @Transactional
-    @Override
-    public void updateUser(User user, Set<String> rolesValues) {
-        makeChanges(user, rolesValues);
-        userDao.updateUser(user);
-    }
+
+//    @Transactional
+//    @Override
+//    public void addUser(User user, Set<String> rolesValues) {
+//        makeChanges(user, rolesValues);
+//        userDao.addUser(user);
+//    }
+//    @Transactional
+//    @Override
+//    public void updateUser(User user, Set<String> rolesValues) {
+//        makeChanges(user, rolesValues);
+//        userDao.updateUser(user);
+//    }
 
     private void makeChanges(User user, Set<String> rolesValues) {
         Set<Role> roles = new HashSet<>();
@@ -78,11 +78,11 @@ public class UserServiceImpl implements UserService {
         userDao.deleteUser(user);
     }
 
-//    @Override
-//    @Transactional
-//    public void updateUser(User user) {
-//        userDao.updateUser(user);
-//    }
+    @Override
+    @Transactional
+    public void updateUser(User user) {
+        userDao.updateUser(user);
+    }
 
     @Override
     @Transactional
