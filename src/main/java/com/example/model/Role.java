@@ -10,13 +10,16 @@ import java.util.Set;
 public class Role implements GrantedAuthority {
 
     @Id
+    @Column(name = "id") // поправил
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    //@NotNull //попроавил
     private Long id;
 
     @Column(name = "role")
     private String role;
 
-    @ManyToMany(mappedBy = "roles")
+    @Transient
+    @ManyToMany(mappedBy = "roles") //mappedBy кому принадлежит связь
     private Set<User> users;
 
     public Set<User> getUsers() {

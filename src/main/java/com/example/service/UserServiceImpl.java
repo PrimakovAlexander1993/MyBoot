@@ -25,42 +25,24 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    @Override
     @Transactional
-    public List<User> getAllUsers() {
-        return userDao.getAllUsers();
-    }
-
     @Override
-    @Transactional
-    public User findById(Long id) {
-        return userDao.findById(id);
-    }
-
-    @Override
-    @Transactional
-    public void addUser(User user) {
+    public void addUser(User user, List<String> rolesValues) {
+        makeChanges(user, rolesValues);
         userDao.addUser(user);
     }
 
-//    @Transactional
-//    @Override
-//    public void addUser(User user, Set<String> rolesValues) {
-//        makeChanges(user, rolesValues);
-//        userDao.addUser(user);
-//    }
-//    @Transactional
-//    @Override
-//    public void updateUser(User user, Set<String> rolesValues) {
-//        makeChanges(user, rolesValues);
-//        userDao.updateUser(user);
-//    }
-
-    private void makeChanges(User user, Set<String> rolesValues) {
+    @Transactional
+    @Override
+    public void updateUser(User user, List<String> rolesValues) {
+        makeChanges(user, rolesValues);
+        userDao.updateUser(user);
+    }
+    private void makeChanges(User user, List<String> rolesValues) {
         Set<Role> roles = new HashSet<>();
         for (String role: rolesValues) {
             if (roleDao.countRoles(role) > 0) {
-                roles.add(roleDao.findByRole(role));
+                roles.add(roleDao.getRoleByName(role));
             } else {
                 Role newRole = new Role();
                 newRole.setRole(role);
@@ -72,34 +54,128 @@ public class UserServiceImpl implements UserService {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
     }
 
-    @Override
     @Transactional
-    public void deleteUser(User user) {
-        userDao.deleteUser(user);
+    @Override
+    public void removeUser(int id) {
+        userDao.removeUser(id);
     }
 
-    @Override
     @Transactional
-    public void updateUser(User user) {
-        userDao.updateUser(user);
+    @Override
+    public User getUserById(int id) {
+        return userDao.getUserById(id);
     }
 
-    @Override
     @Transactional
-    public User getUserByName(String name) {
-        return userDao.getUserByName(name);
+    @Override
+    public List<User> listUsers() {
+        return userDao.listUsers();
     }
 
-    @Override
-    @Transactional
-    public void addUserRoles(Long userId, String userRoles) {
-        userDao.addUserRoles(userId, userRoles);
-    }
 
-    @Override
-    @Transactional
-    public List<Role> getAllRoles() {
-        return roleDao.getAllRoles();
-    }
+//    @Transactional
+//    @Override
+//    public void addUser(User user, List<String> rolesValues) {
+//        Set<Role> roles = new HashSet<>();
+//        for (String role: rolesValues) {
+//            if (roleDao.countRoleByName(role) > 0) {
+//                roles.add(roleDao.getRoleByName(role));
+//            } else {
+//                Role newRole = new Role();
+//                newRole.setRole(role);
+//                //roleDao.save(newRole);
+//                roles.add(newRole);
+//            }
+//        }
+//        user.setRoles(roles);
+//        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+//        //userRepository.save(user);
+//    }
+//    @Transactional
+//    @Override
+//    public void removeUser(Long id) {
+//        userDao.deleteById(id);
+//    }
+//
+//
+//
+//
+//
+//    @Override
+//    @Transactional
+//    public List<User> getAllUsers() {
+//        return userDao.getAllUsers();
+//    }
+//
+//    @Override
+//    @Transactional
+//    public User findById(Long id) {
+//        return userDao.findById(id);
+//    }
+//
+//    @Override
+//    @Transactional
+//    public void addUser(User user) {
+//        userDao.addUser(user);
+//    }
+//
+////    @Transactional
+////    @Override
+////    public void addUser(User user, Set<String> rolesValues) {
+////        makeChanges(user, rolesValues);
+////        userDao.addUser(user);
+////    }
+////    @Transactional
+////    @Override
+////    public void updateUser(User user, Set<String> rolesValues) {
+////        makeChanges(user, rolesValues);
+////        userDao.updateUser(user);
+////    }
+//
+//    private void makeChanges(User user, Set<String> rolesValues) {
+//        Set<Role> roles = new HashSet<>();
+//        for (String role: rolesValues) {
+//            if (roleDao.countRoles(role) > 0) {
+//                roles.add(roleDao.findByRole(role));
+//            } else {
+//                Role newRole = new Role();
+//                newRole.setRole(role);
+//                roleDao.addRole(newRole);
+//                roles.add(newRole);
+//            }
+//        }
+//        user.setRoles(roles);
+//        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+//    }
+//
+//    @Override
+//    @Transactional
+//    public void deleteUser(User user) {
+//        userDao.deleteUser(user);
+//    }
+//
+//    @Override
+//    @Transactional
+//    public void updateUser(User user) {
+//        userDao.updateUser(user);
+//    }
+//
+//    @Override
+//    @Transactional
+//    public User getUserByName(String name) {
+//        return userDao.getUserByName(name);
+//    }
+//
+//    @Override
+//    @Transactional
+//    public void addUserRoles(Long userId, String userRoles) {
+//        userDao.addUserRoles(userId, userRoles);
+//    }
+//
+//    @Override
+//    @Transactional
+//    public List<Role> getAllRoles() {
+//        return roleDao.getAllRoles();
+//    }
 }
 

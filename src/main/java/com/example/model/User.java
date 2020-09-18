@@ -1,5 +1,6 @@
 package com.example.model;
 
+import com.sun.istack.NotNull;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -12,54 +13,49 @@ import java.util.Set;
 public class User implements UserDetails {
 
     @Id
+    @Column(name = "id") // Поправил
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    //@NotNull //попроавил
+    private int id;
 
-    @Column(name = "login")
-    private String login;
+    @Column(name = "login") //login
+    private String name;
 
     @Column(name = "password")
     private String password;
 
-    @Column(name = "email")
-    private String email;
-
-    public User() {
-    }
-
-    public User(String login, String password, String email) {
-        this.login = login;
-        this.password = password;
-        this.email = email;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
+//    @Column(name = "email")
+//    private String email;
 
     @ManyToMany(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
     @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
 
-    public Long getId() {
+    public User() {
+    }
+
+    public User(int id, String name, String password, Set<Role> roles) {
+        this.id = id;
+        this.name = name;
+        this.password = password;
+        this.roles = roles;
+    }
+
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public String getLogin() {
-        return login;
+    public String getName() {
+        return name;
     }
 
     public void setLogin(String login) {
-        this.login = login;
+        this.name = name;
     }
 
     @Override
@@ -83,7 +79,7 @@ public class User implements UserDetails {
 
     @Override
     public String getUsername() {
-        return getLogin();
+        return getName();
     }
 
     @Override

@@ -3,6 +3,7 @@ package com.example.DAO;
 import com.example.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
@@ -18,33 +19,34 @@ public class UserDaoImpl implements UserDao {
     @Autowired
     private RoleDao roleDao;
 
+    @Transactional
     @Override
-    public List getAllUsers() {
-        return entityManager.createQuery("FROM User").getResultList();
+    public void addUser(User user) { //
+        entityManager.persist(user);
     }
 
+    @Transactional
     @Override
-    public User findById(Long id) {
+    public void updateUser(User user) {//
+        entityManager.merge(user);
+    }
+    @Transactional
+    @Override
+    public void removeUser(int id) {
+        User user = entityManager.find(User.class, id);
+        if (user != null) {
+            entityManager.remove(user);
+        }
+    }
+    @Transactional
+    @Override
+    public User getUserById(int id) {
         TypedQuery<User> query = entityManager.createQuery("FROM User WHERE id = :id", User.class);
         query.setParameter("id", id);
         return query.getSingleResult();
     }
 
-    @Override
-    public void addUser(User user) {
-        entityManager.persist(user);
-    }
-
-    @Override
-    public void deleteUser(User user) {
-        entityManager.remove(user);
-    }
-
-    @Override
-    public void updateUser(User user) {
-        entityManager.merge(user);
-    }
-
+    @Transactional
     @Override
     public User getUserByName(String name) {
         TypedQuery<User> query = entityManager
@@ -53,25 +55,10 @@ public class UserDaoImpl implements UserDao {
         return query.getSingleResult();
     }
 
-    /**
-     *
-     * @param userId
-     * @param userRoles
-     * public void addUserRoles(Long userId, String userRoles) {
-     *         if (userRoles.equalsIgnoreCase("admin")) {
-     *             Query query = entityManager.createNativeQuery(
-     *                     "insert into user_roles values (?, 2)");
-     *             query.setParameter(1, userId);
-     *             query.executeUpdate();
-     *         }
-     *
-     *     }
-     */
-
+    @Transactional
     @Override
-    public void addUserRoles(Long userId, String userRoles) {
-        if (userRoles.equalsIgnoreCase("admin")){
-            entityManager.persist(userRoles);
-        }
+    @SuppressWarnings("unchecked")
+    public List<User> listUsers() {
+       return entityManager.createQuery("FROM User").getResultList();
     }
 }
