@@ -1,6 +1,5 @@
 package com.example.model;
 
-import com.sun.istack.NotNull;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -54,7 +53,7 @@ public class User implements UserDetails {
         return name;
     }
 
-    public void setLogin(String login) {
+    public void setName(String name) {
         this.name = name;
     }
 

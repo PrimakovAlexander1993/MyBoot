@@ -34,19 +34,19 @@
 </div>
 <div>
     <h1>Add user</h1>
-    <form action="#" th:action="@{/admin/users/add}" th:object="${user}" method="post">
+    <form th:action="@{/admin/users/add}" th:object="${user}" method="post">
         <table>
             <tbody>
             <tr>
                 <td>User name:</td>
                 <td>
-                    <input type="text" th:field="*{name}">
+                    <input type="text" name="name">
                 </td>
             </tr>
             <tr>
                 <td>Password:</td>
                 <td>
-                    <input type="text" th:field="*{password}">
+                    <input type="text" name="password">
                 </td>
             </tr>
             <tr>
