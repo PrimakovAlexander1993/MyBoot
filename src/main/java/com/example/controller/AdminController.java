@@ -27,7 +27,7 @@ public class AdminController {
 
     @GetMapping(value = "/users")
     public String getAllUsers(Model model) {
-        model.addAttribute("user", new User()); // может не кладу сюда в конструктор? НЕ приходит
+        model.addAttribute("user", new User());
         model.addAttribute("users", userService.listUsers());
         model.addAttribute("ROLES", Arrays.asList("ROLE_USER", "ROLE_ADMIN"));
         return "/admin/users";
@@ -37,9 +37,9 @@ public class AdminController {
     public String addUser(@ModelAttribute("user") User user, @RequestParam List<String> rolesValues) {
         if (user.getId() == 0) {
             userService.addUser(user, rolesValues);
-        } else {//если add, то id=0,но  ошибка Column 'login' cannot be null
+        } else {
             userService.updateUser(user, rolesValues);
-        }//если edit , то Id не ноль, но  ошибка Column 'login' cannot be null
+        }
         return "redirect:/admin/users";
     }
 
@@ -51,8 +51,8 @@ public class AdminController {
 
     @GetMapping(value = "/editUser")
     public String editUser(@RequestParam("id") int id, Model model) {
-        model.addAttribute("user", this.userService.getUserById(id));
-        model.addAttribute("users", this.userService.listUsers());
+        model.addAttribute("user", userService.getUserById(id));
+        model.addAttribute("users", userService.listUsers());
         model.addAttribute("ROLES", Arrays.asList("ROLE_USER", "ROLE_ADMIN"));
         return "/admin/editUser";
     }
